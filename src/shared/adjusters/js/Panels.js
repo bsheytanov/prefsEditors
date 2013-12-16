@@ -271,13 +271,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         },
         repeatingSelectors: ["punctuationVerbosityRow"],
         listeners: {
-            afterRender: "{that}.style"
+            onDomBind: "{that}.style"
         },
         invokers: {
             style: {
                 funcName: "gpii.adjuster.punctuationVerbosity.punctuationVerbosityStyle",
                 args: [
-                    "{that}.options.selectors.punctuationVerbosityOptionLabel",
+                    "{that}.dom.punctuationVerbosityOptionLabel",
                     "{that}.options.controlValues.punctuationVerbosity",
                     "{that}.options.classnameMap.punctuationVerbosity"
                 ]
@@ -286,11 +286,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     });
 
-    gpii.adjuster.punctuationVerbosity.punctuationVerbosityStyle = function (labelsClass, values, classes) {
-        labels = $(labelsClass); // Used because "{that}.dom.punctuationVerbosityOptionLabel" 
-                                 // (like that.locate("punctuationVerbosityOptionLabel")) fails to return
-                                 // the array of labels.
-
+    gpii.adjuster.punctuationVerbosity.punctuationVerbosityStyle = function (labels, values, classes) {
         fluid.each(labels, function (label, index) {
             $(label).addClass(classes[values[index]]);
             $(label).append('<span></span>');
